@@ -3,7 +3,7 @@ const API_KEY = "d9a8de93ed291bc6cf74738f12e1a361";
 
 // Elements
 const topDiv = $(".card-text");
-const bottomDiv = $("#bottomDiv");
+const bottomDiv = $("#fiveday");
 const sideDiv = $("#sideDiv");
 const buttonDiv = $("#cities");
 const searchButton = $("#searchButton");
@@ -57,40 +57,193 @@ function renderButtons() {
   rowEl.appendTo(buttonDiv);
   //
 }
+// Function to populate the Five Day Forecast
+function fiveDayForecast(fiveDay) {
+  console.log(fiveDay);
+
+  var $imgEl = $("<img>");
+  var ImageSource =
+    "http://openweathermap.org/img/wn/" + fiveDay.day1icon + "@2x.png";
+  $imgEl.attr("src", ImageSource);
+
+  var $heading = $("<h2>");
+  var $divEl = $("<div>");
+  var $listEl = $("<ul>");
+  var $tempEl = $("<p>");
+  var $humidEl = $("<p>");
+  var $windEl = $("<p>");
+  var $calendar = dayjs.unix(fiveDay.day1date).format("MM/DD/YYYY");
+  console.log($calendar);
+  $divEl.attr("id", "fiveDayForecast");
+  $heading.text($calendar);
+  $tempEl.text("Temperature: " + fiveDay.day1temp + " °F");
+  $humidEl.text("Humidity: " + fiveDay.day1humidity + "%");
+  $windEl.text("Wind: " + fiveDay.day1wind + " MPH");
+
+  $heading.appendTo($listEl);
+  $imgEl.appendTo($listEl);
+  $tempEl.appendTo($listEl);
+  $humidEl.appendTo($listEl);
+  $windEl.appendTo($listEl);
+  $listEl.appendTo($divEl);
+  $divEl.appendTo(bottomDiv);
+
+  var $imgEl = $("<img>");
+  var ImageSource =
+    "http://openweathermap.org/img/wn/" + fiveDay.day2icon + "@2x.png";
+  $imgEl.attr("src", ImageSource);
+
+  var $heading = $("<h2>");
+  var $divEl = $("<div>");
+  var $listEl = $("<ul>");
+  var $tempEl = $("<p>");
+  var $humidEl = $("<p>");
+  var $windEl = $("<p>");
+  var $calendar = dayjs.unix(fiveDay.day2date).format("MM/DD/YYYY");
+  console.log($calendar);
+  $divEl.attr("id", "fiveDayForecast");
+  $heading.text($calendar);
+  $tempEl.text("Temperature: " + fiveDay.day2temp + " °F");
+  $humidEl.text("Humidity: " + fiveDay.day2humidity + "%");
+  $windEl.text("Wind: " + fiveDay.day2wind + " MPH");
+
+  $heading.appendTo($listEl);
+  $imgEl.appendTo($listEl);
+  $tempEl.appendTo($listEl);
+  $humidEl.appendTo($listEl);
+  $windEl.appendTo($listEl);
+  $listEl.appendTo($divEl);
+  $divEl.appendTo(bottomDiv);
+
+  var $imgEl = $("<img>");
+  var ImageSource =
+    "http://openweathermap.org/img/wn/" + fiveDay.day3icon + "@2x.png";
+  $imgEl.attr("src", ImageSource);
+
+  var $heading = $("<h2>");
+  var $divEl = $("<div>");
+  var $listEl = $("<ul>");
+  var $tempEl = $("<p>");
+  var $humidEl = $("<p>");
+  var $windEl = $("<p>");
+  var $calendar = dayjs.unix(fiveDay.day3date).format("MM/DD/YYYY");
+  console.log($calendar);
+  $divEl.attr("id", "fiveDayForecast");
+  $heading.text($calendar);
+  $tempEl.text("Temperature: " + fiveDay.day3temp + " °F");
+  $humidEl.text("Humidity: " + fiveDay.day3humidity + "%");
+  $windEl.text("Wind: " + fiveDay.day3wind + " MPH");
+
+  $heading.appendTo($listEl);
+  $imgEl.appendTo($listEl);
+  $tempEl.appendTo($listEl);
+  $humidEl.appendTo($listEl);
+  $windEl.appendTo($listEl);
+  $listEl.appendTo($divEl);
+  $divEl.appendTo(bottomDiv);
+
+  var $imgEl = $("<img>");
+  var ImageSource =
+    "http://openweathermap.org/img/wn/" + fiveDay.day4icon + "@2x.png";
+  $imgEl.attr("src", ImageSource);
+
+  var $heading = $("<h2>");
+  var $divEl = $("<div>");
+  var $listEl = $("<ul>");
+  var $tempEl = $("<p>");
+  var $humidEl = $("<p>");
+  var $windEl = $("<p>");
+  var $calendar = dayjs.unix(fiveDay.day4date).format("MM/DD/YYYY");
+  console.log($calendar);
+  $divEl.attr("id", "fiveDayForecast");
+  $heading.text($calendar);
+  $tempEl.text("Temperature: " + fiveDay.day4temp + " °F");
+  $humidEl.text("Humidity: " + fiveDay.day4humidity + "%");
+  $windEl.text("Wind: " + fiveDay.day4wind + " MPH");
+
+  $heading.appendTo($listEl);
+  $imgEl.appendTo($listEl);
+  $tempEl.appendTo($listEl);
+  $humidEl.appendTo($listEl);
+  $windEl.appendTo($listEl);
+  $listEl.appendTo($divEl);
+  $divEl.appendTo(bottomDiv);
+
+  var $imgEl = $("<img>");
+  var ImageSource =
+    "http://openweathermap.org/img/wn/" + fiveDay.day5icon + "@2x.png";
+  $imgEl.attr("src", ImageSource);
+
+  var $heading = $("<h2>");
+  var $divEl = $("<div>");
+  var $listEl = $("<ul>");
+  var $tempEl = $("<p>");
+  var $humidEl = $("<p>");
+  var $windEl = $("<p>");
+  var $calendar = dayjs.unix(fiveDay.day5date).format("MM/DD/YYYY");
+  console.log($calendar);
+  $divEl.attr("id", "fiveDayForecast");
+  $heading.text($calendar);
+  $tempEl.text("Temperature: " + fiveDay.day5temp + " °F");
+  $humidEl.text("Humidity: " + fiveDay.day5humidity + "%");
+  $windEl.text("Wind: " + fiveDay.day5wind + " MPH");
+
+  $heading.appendTo($listEl);
+  $imgEl.appendTo($listEl);
+  $tempEl.appendTo($listEl);
+  $humidEl.appendTo($listEl);
+  $windEl.appendTo($listEl);
+  $listEl.appendTo($divEl);
+  $divEl.appendTo(bottomDiv);
+}
+
+// Function to populate the Current Day forecast
 function cityBreakdown(currentWeather) {
   //
   console.log(currentWeather);
   console.log(currentWeather.stamp);
+  console.log(currentWeather.currentIcon);
+  //img created for heading
+  var $imgEl = $("<img>");
+  var ImageSource =
+    "http://openweathermap.org/img/wn/" +
+    currentWeather.currentIcon +
+    "@2x.png";
+  $imgEl.attr("src", ImageSource);
 
-  var heading = $("<h2>");
+  // headings/list created for my temp/humidity/UVI/Wind
+  var $heading = $("<h2>");
+  $heading.css("fontSize", "70px");
   var $listEl = $("<ul>");
+  $listEl.css("fontSize", "30px");
   var tempEl = $("<p>");
   var humidEl = $("<p>");
   var uvEl = $("<p>");
   var windEl = $("<p>");
-  heading.attr("id", "heading");
-  heading.text(currentWeather.city + " " + currentWeather.stamp);
+  $heading.attr("id", "heading");
+  $heading.text(currentWeather.city + " " + currentWeather.stamp);
 
-  tempEl.text(
-    "Temperature: " + currentWeather.current_temp + " Degrees Fahrenheit"
-  );
-  humidEl.text("Humidity: " + currentWeather.current_humid + " %");
-  uvEl.text("UV Index: " + currentWeather.current_uvi);
-  windEl.text("Wind: " + currentWeather.current_wind + " MPH");
+  tempEl.text("Temperature: " + currentWeather.currentTemp + " °F");
+  humidEl.text("Humidity: " + currentWeather.currentHumid + " %");
+  uvEl.text("UV Index: " + currentWeather.currentUvi);
+  windEl.text("Wind: " + currentWeather.currentWind + " MPH");
   tempEl.appendTo($listEl);
   humidEl.appendTo($listEl);
   windEl.appendTo($listEl);
   uvEl.appendTo($listEl);
 
-  heading.appendTo(topDiv);
+  $imgEl.appendTo($heading);
+  $heading.appendTo(topDiv);
   $listEl.appendTo(topDiv);
   //
 }
 
 // Set the Weather API call
-function processSearch() {
+function processSearch(event) {
   //
-
+  event.preventDefault();
+  topDiv.empty();
+  bottomDiv.empty();
   //
   var searchText = $("#searchText").val().trim();
   //
@@ -145,17 +298,49 @@ function getWeather(apiUrl) {
                   lon: citySearch.lon,
                   lat: citySearch.lat,
                   stamp: citySearch.stamp,
-                  current_date: data2.current.dt,
-                  current_temp: data2.current.temp,
-                  current_wind: data2.current.wind_speed,
-                  current_humid: data2.current.humidity,
-                  current_uvi: data2.current.uvi,
-                  current_icon: data2.current.weather[0].icon,
-                  current_weather: data2.current.weather[0].main,
+                  currentDate: data2.current.dt,
+                  currentTemp: data2.current.temp,
+                  currentWind: data2.current.wind_speed,
+                  currentHumid: data2.current.humidity,
+                  currentUvi: data2.current.uvi,
+                  currentIcon: data2.current.weather[0].icon,
+                  currentWeather: data2.current.weather[0].main,
                 };
                 console.log(currentWeather);
+                var fiveDay = {
+                  city: citySearch.city,
+                  lon: citySearch.lon,
+                  lat: citySearch.lat,
+                  stamp: citySearch.stamp,
+                  day1date: data2.daily[0].dt,
+                  day1temp: data2.daily[0].temp.day,
+                  day1humidity: data2.daily[0].humidity,
+                  day1icon: data2.daily[0].weather[0].icon,
+                  day1wind: data2.daily[0].wind_speed,
+                  day2date: data2.daily[1].dt,
+                  day2temp: data2.daily[1].temp.day,
+                  day2humidity: data2.daily[1].humidity,
+                  day2icon: data2.daily[1].weather[0].icon,
+                  day2wind: data2.daily[1].wind_speed,
+                  day3date: data2.daily[2].dt,
+                  day3temp: data2.daily[2].temp.day,
+                  day3humidity: data2.daily[2].humidity,
+                  day3icon: data2.daily[2].weather[0].icon,
+                  day3wind: data2.daily[2].wind_speed,
+                  day4date: data2.daily[3].dt,
+                  day4temp: data2.daily[3].temp.day,
+                  day4humidity: data2.daily[3].humidity,
+                  day4icon: data2.daily[3].weather[0].icon,
+                  day4wind: data2.daily[3].wind_speed,
+                  day5date: data2.daily[4].dt,
+                  day5temp: data2.daily[4].temp.day,
+                  day5humidity: data2.daily[4].humidity,
+                  day5icon: data2.daily[4].weather[0].icon,
+                  day5wind: data2.daily[4].wind_speed,
+                };
 
                 cityBreakdown(currentWeather);
+                fiveDayForecast(fiveDay);
               });
             }
           });
@@ -177,6 +362,8 @@ function getWeather(apiUrl) {
 // buttonDiv.on("click", "button", ProcessButton);
 searchButton.on("click", processSearch);
 buttonDiv.on("click", function (event) {
+  topDiv.empty();
+  bottomDiv.empty();
   var element = event.target;
 
   if (element.matches("button")) {
@@ -209,3 +396,10 @@ function addCity(searchCity) {
   }
   //
 }
+
+// Five Day forecast
+// need the date
+// need the temp
+// need humidity
+// need wind
+// need weather Icon
