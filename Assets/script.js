@@ -3,7 +3,7 @@ const API_KEY = "d9a8de93ed291bc6cf74738f12e1a361";
 
 // Elements
 const topDiv = $(".card-text");
-const bottomDiv = $("#fiveday");
+const bottomDiv = $("#images");
 const sideDiv = $("#sideDiv");
 const buttonDiv = $("#cities");
 const searchButton = $("#searchButton");
@@ -229,6 +229,14 @@ function cityBreakdown(currentWeather) {
   humidEl.text("Humidity: " + currentWeather.currentHumid + " %");
   uvEl.text("UV Index: " + currentWeather.currentUvi);
   windEl.text("Wind: " + currentWeather.currentWind + " MPH");
+
+  if (currentWeather.currentUvi < 2) {
+    uvEl.addClass("low");
+  } else if (currentWeather.currentUvi < 5) {
+    uvEl.addClass("medium");
+  } else {
+    uvEl.addClass("high");
+  }
   tempEl.appendTo($listEl);
   humidEl.appendTo($listEl);
   windEl.appendTo($listEl);
