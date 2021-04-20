@@ -230,12 +230,14 @@ function cityBreakdown(currentWeather) {
   uvEl.text("UV Index: " + currentWeather.currentUvi);
   windEl.text("Wind: " + currentWeather.currentWind + " MPH");
 
-  if (currentWeather.currentUvi < 2) {
+  if (currentWeather.currentUvi < 2.01) {
     uvEl.addClass("low");
-  } else if (currentWeather.currentUvi < 5) {
+  } else if (currentWeather.currentUvi < 5.01) {
     uvEl.addClass("medium");
-  } else {
+  } else if (currentWeather.currentUvi < 7.01) {
     uvEl.addClass("high");
+  } else {
+    uvEl.addClass("severe");
   }
   tempEl.appendTo($listEl);
   humidEl.appendTo($listEl);

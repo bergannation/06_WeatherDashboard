@@ -34,8 +34,15 @@ hr {
   box-shadow: 2px 2px 3px black;
   width: 22%;
 }
-
 .high {
+  background-color: orange;
+  color: black;
+
+  box-shadow: 2px 2px 3px black;
+  width: 22%;
+}
+
+.severe {
   background-color: red;
   color: black;
 
