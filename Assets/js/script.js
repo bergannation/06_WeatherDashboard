@@ -272,8 +272,10 @@ function processSearch(event) {
     // we render the buttons to show the cities
     renderButtons();
     console.log(apiUrl);
+
     //
   }
+  searchText = $("#searchText").val("");
   //
 }
 // Call the Weather API to retrieve our Information
