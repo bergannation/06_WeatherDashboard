@@ -2,7 +2,7 @@
 const API_KEY = "d9a8de93ed291bc6cf74738f12e1a361";
 
 // Elements
-const topDiv = $("#topDiv");
+const topDiv = $(".card-text");
 const bottomDiv = $("#bottomDiv");
 const sideDiv = $("#sideDiv");
 const buttonDiv = $("#cities");
@@ -57,52 +57,30 @@ function renderButtons() {
   rowEl.appendTo(buttonDiv);
   //
 }
-function renderImage(data) {
+function cityBreakdown(currentWeather) {
   //
-  var rowEl, colEl, imgEl, pEl;
-  var fixedImg, animatedImg;
-  //
-  topDiv.empty();
-  // console.log(data);
-  //
-  rowEl = $("<div>");
-  // rowEl.addClass("row d-flex flex-wrap");
-  rowEl.addClass("d-flex align-content-stretch flex-wrap row row-cols-auto");
-  //
-  for (var i = 0, l = data.length; i < l; i++) {
-    //
-    // fixedImg = data[i].images.fixed_height_small_still.url;
-    // animatedImg = data[i].images.original.url;
-    fixedImg = data[i].images.original_still.url;
-    animatedImg = data[i].images.original.url;
+  console.log(currentWeather);
 
-    // Create a colum
-    colEl = $("<div>");
-    // colEl.addClass("col-md-3 col-sm-3 col-4 text-center col-custom");
-    colEl.addClass("col text-center col-custom");
-    colEl.attr("col-number");
-    //
-    // Create an image
-    imgEl = $("<img>");
-    imgEl.attr("fixed", fixedImg);
-    imgEl.attr("animated", animatedImg);
-    imgEl.attr("state", "fixed");
-    imgEl.attr("src", fixedImg);
-    // imgEl.attr("");
-    // imgEl.addClass("img-fluid img-thumbnail");
-    imgEl.addClass("img-fluid shadow-lg d-block");
-    imgEl.appendTo(colEl);
-    //
-    pEl = $("<p>");
-    pEl.addClass("text-uppercase p-custom");
-    pEl.text(data[i].rating);
-    pEl.appendTo(colEl);
-    //
-    colEl.appendTo(rowEl);
-    //
-  }
-  //
-  rowEl.appendTo(topDiv);
+  var heading = $("<h2>");
+  var $listEl = $("<ul>");
+  var tempEl = $("<p>");
+  var humidEl = $("<p>");
+  var uvEl = $("<p>");
+  var windEl = $("<p>");
+  heading.attr("id", "heading");
+  heading.text(currentWeather.city + " " + currentWeather.stamp);
+
+  tempEl.text("Temperature: " + currentWeather.current_temp);
+  humidEl.text("Humidity: " + currentWeather.current_humid);
+  uvEl.text("UV Index: " + currentWeather.current_uvi);
+  windEl.text("Wind: " + currentWeather.current_wind);
+  tempEl.appendTo($listEl);
+  humidEl.appendTo($listEl);
+  windEl.appendTo($listEl);
+  uvEl.appendTo($listEl);
+
+  heading.appendTo(topDiv);
+  $listEl.appendTo(topDiv);
   //
 }
 
@@ -117,7 +95,7 @@ function processSearch() {
     //
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather";
     apiUrl = apiUrl + "?q=" + searchText;
-    apiUrl = apiUrl + "&appid=" + API_KEY + "&units=imperial";
+    apiUrl = apiUrl + "&appid=" + API_KEY;
     //
     // getWeather function is called with apiUrl passed into it
     getWeather(apiUrl);
@@ -130,7 +108,7 @@ function processSearch() {
   }
   //
 }
-// Call the Weather API
+// Call the Weather API to retrieve our Information
 function getWeather(apiUrl) {
   //
   fetch(apiUrl)
@@ -153,11 +131,30 @@ function getWeather(apiUrl) {
           apiUrl2 =
             apiUrl2 + "?lat=" + citySearch.lat + "&lon=" + citySearch.lon;
           apiUrl2 = apiUrl2 + "&appid=" + API_KEY;
-
+          console.log(apiUrl2);
           //
-          fetch(apiUrl2).then(function (data2) {
-            console.log(data2);
-            return data2.json();
+          fetch(apiUrl2).then(function (response2) {
+            if (response2.ok) {
+              response2.json().then(function (data2) {
+                console.log(data2);
+                var currentWeather = {
+                  city: citySearch.city,
+                  lon: citySearch.lon,
+                  lat: citySearch.lat,
+                  stamp: citySearch.stamp,
+                  current_date: data2.current.dt,
+                  current_temp: data2.current.temp,
+                  current_wind: data2.current.wind_speed,
+                  current_humid: data2.current.humidity,
+                  current_uvi: data2.current.uvi,
+                  current_icon: data2.current.weather[0].icon,
+                  current_weather: data2.current.weather[0].main,
+                };
+                console.log(currentWeather);
+
+                cityBreakdown(currentWeather);
+              });
+            }
           });
         });
       } else {
@@ -171,18 +168,6 @@ function getWeather(apiUrl) {
       alert("Unable to connect to Weather Dashboard");
       //
     });
-  //
-}
-// Adds topic to the list
-function addCity(searchCity) {
-  //
-  if (!(Cities.indexOf(searchCity) >= 0)) {
-    //
-    // Insert it
-    Cities.push(searchCity);
-    NUMBER_OF_CITIES = Cities.length;
-    //
-  }
   //
 }
 
@@ -199,8 +184,8 @@ buttonDiv.on("click", function (event) {
   if (buttonText != "") {
     //
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather";
-    apiUrl = apiUrl + "?q=" + buttonText + "&units=imperial";
-    apiUrl = apiUrl + "&api_key=" + API_KEY;
+    apiUrl = apiUrl + "?q=" + buttonText;
+    apiUrl = apiUrl + "&appid=" + API_KEY;
     //
     console.log(apiUrl);
     getWeather(apiUrl);
@@ -208,3 +193,16 @@ buttonDiv.on("click", function (event) {
   }
 });
 renderButtons();
+
+// Adds Buttons to the list
+function addCity(searchCity) {
+  //
+  if (!(Cities.indexOf(searchCity) >= 0)) {
+    //
+    // Insert it
+    Cities.push(searchCity);
+    NUMBER_OF_CITIES = Cities.length;
+    //
+  }
+  //
+}
