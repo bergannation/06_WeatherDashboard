@@ -215,7 +215,7 @@ function cityBreakdown(currentWeather) {
 
   // headings/list created for my temp/humidity/UVI/Wind
   var $heading = $("<h2>");
-  $heading.css("fontSize", "70px");
+  $heading.css("fontSize", "60px");
   var $listEl = $("<ul>");
   $listEl.css("fontSize", "30px");
   var tempEl = $("<p>");
@@ -314,37 +314,35 @@ function getWeather(apiUrl) {
                   lon: citySearch.lon,
                   lat: citySearch.lat,
                   stamp: citySearch.stamp,
-                  day1date: data2.daily[0].dt,
-                  day1temp: data2.daily[0].temp.day,
-                  day1humidity: data2.daily[0].humidity,
-                  day1icon: data2.daily[0].weather[0].icon,
-                  day1wind: data2.daily[0].wind_speed,
-                  day2date: data2.daily[1].dt,
-                  day2temp: data2.daily[1].temp.day,
-                  day2humidity: data2.daily[1].humidity,
-                  day2icon: data2.daily[1].weather[0].icon,
-                  day2wind: data2.daily[1].wind_speed,
-                  day3date: data2.daily[2].dt,
-                  day3temp: data2.daily[2].temp.day,
-                  day3humidity: data2.daily[2].humidity,
-                  day3icon: data2.daily[2].weather[0].icon,
-                  day3wind: data2.daily[2].wind_speed,
-                  day4date: data2.daily[3].dt,
-                  day4temp: data2.daily[3].temp.day,
-                  day4humidity: data2.daily[3].humidity,
-                  day4icon: data2.daily[3].weather[0].icon,
-                  day4wind: data2.daily[3].wind_speed,
-                  day5date: data2.daily[4].dt,
-                  day5temp: data2.daily[4].temp.day,
-                  day5humidity: data2.daily[4].humidity,
-                  day5icon: data2.daily[4].weather[0].icon,
-                  day5wind: data2.daily[4].wind_speed,
+                  day1date: data2.daily[1].dt,
+                  day1temp: data2.daily[1].temp.day,
+                  day1humidity: data2.daily[1].humidity,
+                  day1icon: data2.daily[1].weather[0].icon,
+                  day1wind: data2.daily[1].wind_speed,
+                  day2date: data2.daily[2].dt,
+                  day2temp: data2.daily[2].temp.day,
+                  day2humidity: data2.daily[2].humidity,
+                  day2icon: data2.daily[2].weather[0].icon,
+                  day2wind: data2.daily[2].wind_speed,
+                  day3date: data2.daily[3].dt,
+                  day3temp: data2.daily[3].temp.day,
+                  day3humidity: data2.daily[3].humidity,
+                  day3icon: data2.daily[3].weather[0].icon,
+                  day3wind: data2.daily[3].wind_speed,
+                  day4date: data2.daily[4].dt,
+                  day4temp: data2.daily[4].temp.day,
+                  day4humidity: data2.daily[4].humidity,
+                  day4icon: data2.daily[4].weather[0].icon,
+                  day4wind: data2.daily[4].wind_speed,
+                  day5date: data2.daily[5].dt,
+                  day5temp: data2.daily[5].temp.day,
+                  day5humidity: data2.daily[5].humidity,
+                  day5icon: data2.daily[5].weather[0].icon,
+                  day5wind: data2.daily[5].wind_speed,
                 };
 
                 cityBreakdown(currentWeather);
                 fiveDayForecast(fiveDay);
-
-                var storedWeather = localStorage.getItem();
               });
             }
           });
@@ -401,9 +399,5 @@ function addCity(searchCity) {
   //
 }
 
-// Five Day forecast
-// need the date
-// need the temp
-// need humidity
-// need wind
-// need weather Icon
+// Local Storage issues:
+// need to set local storage from the last inputted city

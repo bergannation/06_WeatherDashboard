@@ -43,9 +43,9 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 Below are links to access this live website and repository.
 
-Github:
+Github: https://github.com/bergannation/06_WeatherDashboard
 
-Deployed URL:
+Deployed URL: https://bergannation.github.io/06_WeatherDashboard/
 
 ## Mock-Up
 
