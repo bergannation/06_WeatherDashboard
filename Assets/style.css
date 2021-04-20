@@ -12,11 +12,11 @@ hr {
   background-color: white;
 }
 #fiveDayForecast {
-  background-color: darkblue;
+  background: radial-gradient(ellipse at bottom, #1b2735, #090a0f);
   color: white;
   margin: 5px;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 2px 2px 5px black;
+  box-shadow: 2px 2px 5px green;
   width: 20%;
 }

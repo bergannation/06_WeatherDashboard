@@ -30,6 +30,7 @@ function renderButtons() {
   var rowEl, colEl, btnEl;
   //
   buttonDiv.empty();
+
   //
   rowEl = $("<div>");
   // rowEl.addClass("row row-custom");
@@ -54,6 +55,7 @@ function renderButtons() {
     //
   }
   //
+
   rowEl.appendTo(buttonDiv);
   //
 }
@@ -341,6 +343,8 @@ function getWeather(apiUrl) {
 
                 cityBreakdown(currentWeather);
                 fiveDayForecast(fiveDay);
+
+                var storedWeather = localStorage.getItem();
               });
             }
           });
