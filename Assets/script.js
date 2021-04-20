@@ -9,7 +9,7 @@ const buttonDiv = $("#cities");
 const searchButton = $("#searchButton");
 
 // Variables
-var today = dayjs().format("MM_DD_YYYY");
+var today = dayjs().format("(MM/DD/YYYY)");
 var citySearch = {};
 var weather = [];
 
@@ -60,6 +60,7 @@ function renderButtons() {
 function cityBreakdown(currentWeather) {
   //
   console.log(currentWeather);
+  console.log(currentWeather.stamp);
 
   var heading = $("<h2>");
   var $listEl = $("<ul>");
@@ -70,10 +71,12 @@ function cityBreakdown(currentWeather) {
   heading.attr("id", "heading");
   heading.text(currentWeather.city + " " + currentWeather.stamp);
 
-  tempEl.text("Temperature: " + currentWeather.current_temp);
-  humidEl.text("Humidity: " + currentWeather.current_humid);
+  tempEl.text(
+    "Temperature: " + currentWeather.current_temp + " Degrees Fahrenheit"
+  );
+  humidEl.text("Humidity: " + currentWeather.current_humid + " %");
   uvEl.text("UV Index: " + currentWeather.current_uvi);
-  windEl.text("Wind: " + currentWeather.current_wind);
+  windEl.text("Wind: " + currentWeather.current_wind + " MPH");
   tempEl.appendTo($listEl);
   humidEl.appendTo($listEl);
   windEl.appendTo($listEl);
@@ -95,7 +98,7 @@ function processSearch() {
     //
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather";
     apiUrl = apiUrl + "?q=" + searchText;
-    apiUrl = apiUrl + "&appid=" + API_KEY;
+    apiUrl = apiUrl + "&appid=" + API_KEY + "&units=imperial";
     //
     // getWeather function is called with apiUrl passed into it
     getWeather(apiUrl);
@@ -130,7 +133,7 @@ function getWeather(apiUrl) {
           var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall";
           apiUrl2 =
             apiUrl2 + "?lat=" + citySearch.lat + "&lon=" + citySearch.lon;
-          apiUrl2 = apiUrl2 + "&appid=" + API_KEY;
+          apiUrl2 = apiUrl2 + "&appid=" + API_KEY + "&units=imperial";
           console.log(apiUrl2);
           //
           fetch(apiUrl2).then(function (response2) {
@@ -185,7 +188,7 @@ buttonDiv.on("click", function (event) {
     //
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather";
     apiUrl = apiUrl + "?q=" + buttonText;
-    apiUrl = apiUrl + "&appid=" + API_KEY;
+    apiUrl = apiUrl + "&appid=" + API_KEY + "&units=imperial";
     //
     console.log(apiUrl);
     getWeather(apiUrl);
