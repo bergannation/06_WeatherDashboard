@@ -9,7 +9,7 @@ const buttonDiv = $("#cities");
 const searchButton = $("#searchButton");
 
 // Variables
-var today = dayjs().format("(MM/DD/YYYY)");
+var currentDay = dayjs().format("(MM/DD/YYYY)");
 var citySearch = {};
 var weather = [];
 
@@ -292,7 +292,7 @@ function getWeather(apiUrl) {
             city: data.name,
             lon: data.coord.lon,
             lat: data.coord.lat,
-            stamp: today,
+            stamp: currentDay,
           };
           console.log(citySearch);
           var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall";
@@ -410,4 +410,4 @@ function addCity(searchCity) {
 }
 
 // Local Storage issues:
-// need to set local storage from the last inputted city
+// need to set local storage from the last inputted city and local storage set for the buttons

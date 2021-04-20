@@ -11,6 +11,10 @@ body {
 hr {
   background-color: white;
 }
+h1 {
+  font-size: 60px;
+  font-weight: 900;
+}
 #fiveDayForecast {
   background: radial-gradient(ellipse at bottom, #1b2735, #090a0f);
   color: white;
