@@ -9,6 +9,10 @@ const buttonDiv = $("#cities");
 const searchButton = $("#searchButton");
 
 // Variables
+var today = dayjs().format("MM_DD_YYYY");
+var citySearch = {};
+var weather = [];
+
 var Cities = [
   "Omaha",
   "New York City",
@@ -111,9 +115,9 @@ function processSearch() {
   //
   if (searchText != "") {
     //
-    var apiUrl = "api.openweathermap.org/data/2.5/weather";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather";
     apiUrl = apiUrl + "?q=" + searchText;
-    apiUrl = apiUrl + "&appid=" + API_KEY;
+    apiUrl = apiUrl + "&appid=" + API_KEY + "&units=imperial";
     //
     // getWeather function is called with apiUrl passed into it
     getWeather(apiUrl);
@@ -121,11 +125,12 @@ function processSearch() {
     addCity(searchText);
     // we render the buttons to show the cities
     renderButtons();
+    console.log(apiUrl);
     //
   }
   //
 }
-// Call the Giphy API
+// Call the Weather API
 function getWeather(apiUrl) {
   //
   fetch(apiUrl)
@@ -134,10 +139,26 @@ function getWeather(apiUrl) {
       //
       if (response.ok) {
         //
-        response.json().then(function (res) {
+        response.json().then(function (data) {
           //
-          console.log(res.data);
+          console.log(data);
+          citySearch = {
+            city: data.name,
+            lon: data.coord.lon,
+            lat: data.coord.lat,
+            stamp: today,
+          };
+          console.log(citySearch);
+          var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall";
+          apiUrl2 =
+            apiUrl2 + "?lat=" + citySearch.lat + "&lon=" + citySearch.lon;
+          apiUrl2 = apiUrl2 + "&appid=" + API_KEY;
+
           //
+          fetch(apiUrl2).then(function (data2) {
+            console.log(data2);
+            return data2.json();
+          });
         });
       } else {
         //
@@ -167,4 +188,23 @@ function addCity(searchCity) {
 
 // buttonDiv.on("click", "button", ProcessButton);
 searchButton.on("click", processSearch);
+buttonDiv.on("click", function (event) {
+  var element = event.target;
+
+  if (element.matches("button")) {
+    var buttonText = element.getAttribute("id");
+  }
+  console.log(buttonText);
+
+  if (buttonText != "") {
+    //
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather";
+    apiUrl = apiUrl + "?q=" + buttonText + "&units=imperial";
+    apiUrl = apiUrl + "&api_key=" + API_KEY;
+    //
+    console.log(apiUrl);
+    getWeather(apiUrl);
+    //
+  }
+});
 renderButtons();
