@@ -45,7 +45,7 @@ function renderButtons() {
     btnEl = $("<button>");
     btnEl.text(topic);
     btnEl.attr("id", topic);
-    btnEl.addClass("btn btn-light text-capitalize");
+    btnEl.addClass("btn btn-light btn-block text-capitalize");
     btnEl.appendTo(colEl);
     //
     colEl.appendTo(rowEl);
@@ -279,6 +279,7 @@ function getWeather(apiUrl) {
         //
         response.json().then(function (data) {
           //
+          console.log(data);
           citySearch = {
             city: data.name,
             lon: data.coord.lon,
