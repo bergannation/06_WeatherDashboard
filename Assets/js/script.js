@@ -11,17 +11,10 @@ const searchButton = $("#searchButton");
 // Variables
 var currentDay = dayjs().format("(MM/DD/YYYY)");
 var citySearch = {};
-var weather = [];
 
-var Cities = [
-  "Omaha",
-  "New York City",
-  "Boston",
-  "Kansas City",
-  "Los Angeles",
-  "Houston",
-  "Atlanta",
-];
+var storedCities = JSON.parse(localStorage.getItem("cities")) || [];
+
+var Cities = [];
 var NUMBER_OF_CITIES = Cities.length;
 
 function renderButtons() {
@@ -31,15 +24,19 @@ function renderButtons() {
   //
   buttonDiv.empty();
 
+  var CombinedCities = [];
+  CombinedCities.push(...Cities);
+  CombinedCities.push(...storedCities);
+
   //
   rowEl = $("<div>");
   // rowEl.addClass("row row-custom");
   rowEl.addClass("row-cols-auto p-10 m-10");
   rowEl.attr("id", "cities");
   //
-  for (var i = 0; i < Cities.length; i++) {
+  for (var i = 0; i < CombinedCities.length; i++) {
     //
-    topic = Cities[i];
+    topic = CombinedCities[i];
     //
     colEl = $("<div>");
     // colEl.addClass
@@ -61,8 +58,6 @@ function renderButtons() {
 }
 // Function to populate the Five Day Forecast
 function fiveDayForecast(fiveDay) {
-  console.log(fiveDay);
-
   var $imgEl = $("<img>");
   var ImageSource =
     "http://openweathermap.org/img/wn/" + fiveDay.day1icon + "@2x.png";
@@ -75,7 +70,7 @@ function fiveDayForecast(fiveDay) {
   var $humidEl = $("<p>");
   var $windEl = $("<p>");
   var $calendar = dayjs.unix(fiveDay.day1date).format("MM/DD/YYYY");
-  console.log($calendar);
+
   $divEl.attr("id", "fiveDayForecast");
   $heading.text($calendar);
   $tempEl.text("Temperature: " + fiveDay.day1temp + " °F");
@@ -102,7 +97,7 @@ function fiveDayForecast(fiveDay) {
   var $humidEl = $("<p>");
   var $windEl = $("<p>");
   var $calendar = dayjs.unix(fiveDay.day2date).format("MM/DD/YYYY");
-  console.log($calendar);
+
   $divEl.attr("id", "fiveDayForecast");
   $heading.text($calendar);
   $tempEl.text("Temperature: " + fiveDay.day2temp + " °F");
@@ -129,7 +124,7 @@ function fiveDayForecast(fiveDay) {
   var $humidEl = $("<p>");
   var $windEl = $("<p>");
   var $calendar = dayjs.unix(fiveDay.day3date).format("MM/DD/YYYY");
-  console.log($calendar);
+
   $divEl.attr("id", "fiveDayForecast");
   $heading.text($calendar);
   $tempEl.text("Temperature: " + fiveDay.day3temp + " °F");
@@ -156,7 +151,7 @@ function fiveDayForecast(fiveDay) {
   var $humidEl = $("<p>");
   var $windEl = $("<p>");
   var $calendar = dayjs.unix(fiveDay.day4date).format("MM/DD/YYYY");
-  console.log($calendar);
+
   $divEl.attr("id", "fiveDayForecast");
   $heading.text($calendar);
   $tempEl.text("Temperature: " + fiveDay.day4temp + " °F");
@@ -183,7 +178,7 @@ function fiveDayForecast(fiveDay) {
   var $humidEl = $("<p>");
   var $windEl = $("<p>");
   var $calendar = dayjs.unix(fiveDay.day5date).format("MM/DD/YYYY");
-  console.log($calendar);
+
   $divEl.attr("id", "fiveDayForecast");
   $heading.text($calendar);
   $tempEl.text("Temperature: " + fiveDay.day5temp + " °F");
@@ -202,9 +197,6 @@ function fiveDayForecast(fiveDay) {
 // Function to populate the Current Day forecast
 function cityBreakdown(currentWeather) {
   //
-  console.log(currentWeather);
-  console.log(currentWeather.stamp);
-  console.log(currentWeather.currentIcon);
   //img created for heading
   var $imgEl = $("<img>");
   var ImageSource =
@@ -271,8 +263,6 @@ function processSearch(event) {
     addCity(searchText);
     // we render the buttons to show the cities
     renderButtons();
-    console.log(apiUrl);
-
     //
   }
   searchText = $("#searchText").val("");
@@ -289,19 +279,18 @@ function getWeather(apiUrl) {
         //
         response.json().then(function (data) {
           //
-          console.log(data);
           citySearch = {
             city: data.name,
             lon: data.coord.lon,
             lat: data.coord.lat,
             stamp: currentDay,
           };
-          console.log(citySearch);
+
           var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall";
           apiUrl2 =
             apiUrl2 + "?lat=" + citySearch.lat + "&lon=" + citySearch.lon;
           apiUrl2 = apiUrl2 + "&appid=" + API_KEY + "&units=imperial";
-          console.log(apiUrl2);
+
           //
           fetch(apiUrl2).then(function (response2) {
             if (response2.ok) {
@@ -383,7 +372,6 @@ buttonDiv.on("click", function (event) {
   if (element.matches("button")) {
     var buttonText = element.getAttribute("id");
   }
-  console.log(buttonText);
 
   if (buttonText != "") {
     //
@@ -391,7 +379,6 @@ buttonDiv.on("click", function (event) {
     apiUrl = apiUrl + "?q=" + buttonText;
     apiUrl = apiUrl + "&appid=" + API_KEY + "&units=imperial";
     //
-    console.log(apiUrl);
     getWeather(apiUrl);
     //
   }
@@ -404,12 +391,10 @@ function addCity(searchCity) {
   if (!(Cities.indexOf(searchCity) >= 0)) {
     //
     // Insert it
-    Cities.push(searchCity);
+    storedCities.unshift(searchCity);
     NUMBER_OF_CITIES = Cities.length;
     //
+    localStorage.setItem("cities", JSON.stringify(storedCities));
   }
   //
 }
-
-// Local Storage issues:
-// need to set local storage from the last inputted city and local storage set for the buttons
