@@ -45,7 +45,7 @@ function renderButtons() {
     btnEl = $("<button>");
     btnEl.text(topic);
     btnEl.attr("id", topic);
-    btnEl.addClass("btn btn-light btn-block text-capitalize");
+    btnEl.addClass("btn btn-block btn-light text-capitalize");
     btnEl.appendTo(colEl);
     //
     colEl.appendTo(rowEl);
@@ -261,8 +261,7 @@ function processSearch(event) {
     getWeather(apiUrl);
     // we add a city to our button list
     addCity(searchText);
-    // we render the buttons to show the cities
-    renderButtons();
+
     //
   }
   searchText = $("#searchText").val("");
@@ -345,6 +344,8 @@ function getWeather(apiUrl) {
 
                 cityBreakdown(currentWeather);
                 fiveDayForecast(fiveDay);
+                // we render the buttons to show the cities
+                renderButtons();
               });
             }
           });
